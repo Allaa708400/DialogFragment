@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -89,6 +92,8 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment{
         }
     }
 
+    /*
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -124,15 +129,45 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment{
         return builder.create();
     }
 
+     */
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.custom_dialog_layoyt, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+      //  return inflater.inflate(R.layout.fragment_blank, container, false);
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        TextView tv_title = view.findViewById(R.id.dialog_tv_title);
+        TextView tv_message = view.findViewById(R.id.dialog_tv_message);
+       EditText et_content = view.findViewById(R.id.dialog_et_content);
+        Button btn_ok = view.findViewById(R.id.dialog_btn_ok);
+
+        tv_title.setText(title);
+        tv_message.setText(message);
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                positiveClickListener.onPositiveButtonClicked(et_content.getText().toString());
+
+                dismiss();
+            }
+        });
+
     }
 
     public interface OnPositiveClickListener{
-        void onPositiveButtonClicked();
+        void onPositiveButtonClicked(String text);
     }
     public interface OnNegativeClickListener{
         void onNegativeButtonClicked();

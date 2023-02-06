@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements DialogFragment.On
     }
 
     @Override
-    public void onPositiveButtonClicked() {
-        Toast.makeText(this, "Yes clicked", Toast.LENGTH_SHORT).show();
+    public void onPositiveButtonClicked(String text) {
+        Toast.makeText(this, "Yes clicked: "+text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
